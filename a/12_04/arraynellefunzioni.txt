@@ -1,0 +1,7 @@
+Se passo v a una funzione, con v[]
+
+gli passo la posizione della memoria della prima cella poi fa lui coi bit
+
+fare funct(v) == funct(&v(0))
+
+void funct(int []) == void funct(int&)

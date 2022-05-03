@@ -1,0 +1,1 @@
+Il programma stamperá 16 poiché vengono saltati i casi i==2,4,6 quindi i=9+7.
