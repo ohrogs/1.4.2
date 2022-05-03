@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <string.h>
 
 #define DIM 32
 
@@ -13,14 +14,8 @@ int main()
     printf("inserire la seconda parola\n");
     scanf("%s", sub);
     
-    for (h = 0; string[h] != '\0'; h++) //conto la stringa
-    {
-        ;
-    }
-    for (k = 0; sub[k] != '\0'; k++) //conto la sub
-    {
-        ;
-    }
+    h=strlen(string);
+    k=strlen(sub);
     //printf("\n%d %d\n", h,k);
     if(h<k || k==0 || h == 0) //se la presunta sub é maggiore dell'originale allora non é possibile che sia una sottostringa stessa cosa se una delle due é vuota
     {
@@ -28,7 +23,7 @@ int main()
         return 0;
     }
 
-    for (int i = 0; string[i+1] != '\0'; i++) //cerco il punto in cui le stringhe iniziano a combaciare
+    /*for (int i = 0; string[i+1] != '\0'; i++) //cerco il punto in cui le stringhe iniziano a combaciare
     {
         if (string[i]==sub[0])
         {
@@ -43,18 +38,17 @@ int main()
     {
         printf("La seconda stringa non é sottostringa della prima\n");
         return 0;
-    }   
+    }*/  
 
 
     for (int i = 0; string[i+k] != '\0'; i++)
     {
-        check = true;
-        for (int scrollS=pdi, scrolls=0; scrolls < k && check; scrollS++, scrolls++)//scrolls é per la sub scrollS per la string
+        //check = true;
+        for (int j = 0; j < k-1 && check; j++)//scrolls é per la sub scrollS per la string
         {
-            if (string[scrollS]!=sub[scrolls])
+            if (string[i+j]!=sub[j])
             {
                 check = false;
-                break;
             }
         }
     }
