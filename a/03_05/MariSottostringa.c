@@ -14,8 +14,8 @@ int main()
     printf("inserire la seconda parola\n");
     scanf("%s", sub);
     
-    h=strlen(string);
-    k=strlen(sub);
+    h=strlen(string)-1;
+    k=strlen(sub)-1;
     //printf("\n%d %d\n", h,k);
     if(h<k || k==0 || h == 0) //se la presunta sub é maggiore dell'originale allora non é possibile che sia una sottostringa stessa cosa se una delle due é vuota
     {
