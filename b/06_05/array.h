@@ -1,9 +1,20 @@
+bool IntIsIn(int[], int, int);
 int basicSearch(int [], int, int);
 float IntMediArray(int [], int);
 float FloatMediArray(float [], int);
 int IntMaxArray(const int [], int); 
 int IntMinArray(const int [], int); //const per evitare di paciugare
 int IntUguaglianzaParallela(int [], int [], int);
+
+bool IntIsIn(int v[], int x, int dim)
+{
+    for (int i = 0; i < dim; i++)
+    {
+        if(v[i]==x)
+            return true;
+    }
+    
+}
 
 int IntMinArray(const int v[], int dim) //ricerca CIECA del massimo
 {
