@@ -15,7 +15,7 @@ int main()
     int v[DIM], compatto[DIM];
     popArray(v, DIM);
     printArray(v, DIM);
-    printArray(compatto, DIM)                  
+    printArray(compatto, DIM);      
 }
 
 void popArray(int v[], int dim)
@@ -28,14 +28,7 @@ void popArray(int v[], int dim)
 
 void popArray2(int v[], int og[],int dim)
 {
-    for (int i = 0; i < dim; i++)
-    {
-        v[i]=1+rand()%100;
-        if(IntIsIn(og, v[i], dim))
-        {
-            v[i]=0;
-        }        
-    }   
+      
 }
 
 void printArray(int v[], int dim)
