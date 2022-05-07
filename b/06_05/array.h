@@ -8,12 +8,23 @@ int IntUguaglianzaParallela(int [], int [], int);
 
 bool IntIsIn(int v[], int x, int dim)
 {
+    if (dim==0)
+    {
+        return false;
+    }
+    else if(dim==1)
+    {
+        if (v[0]==x)
+            return true;
+        else
+            return false;
+    }    
     for (int i = 0; i < dim; i++)
     {
         if(v[i]==x)
             return true;
     }
-    
+    return false;
 }
 
 int IntMinArray(const int v[], int dim) //ricerca CIECA del massimo

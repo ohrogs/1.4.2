@@ -13,7 +13,9 @@ void printArray(int [], int);
 int main()
 {
     int v[DIM], compatto[DIM];
+    srand(time(NULL));
     popArray(v, DIM);
+    popArray2(compatto, v, DIM);
     printArray(v, DIM);
     printArray(compatto, DIM);      
 }
@@ -26,9 +28,14 @@ void popArray(int v[], int dim)
     }   
 }
 
-void popArray2(int v[], int og[],int dim)
+void popArray2(int compattare[], int og[],int dim)
 {
-      
+    for(int i = 0; i < dim; i++)
+    {
+        compattare[i]=0;
+        if(!IntIsIn(compattare, og[i], i+1))
+            compattare[i] = og[i];
+    }
 }
 
 void printArray(int v[], int dim)
