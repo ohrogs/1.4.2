@@ -67,7 +67,10 @@ bool isPossible(char campo[][DIM], char rc, int pos, int y, int n)//rc indica la
         for(int i = y; i < y+n; i++)
         {
             if(campo[i][pos]!='a')
-                return false;       
+            {
+                printf("\nREINSERIRE\n");
+                return false;
+            }      
         }
     }
     else
@@ -75,7 +78,10 @@ bool isPossible(char campo[][DIM], char rc, int pos, int y, int n)//rc indica la
         for(int i = y; i < y+n; i++)
         {
             if(campo[pos][i]!='a')
-                return false;       
+            {
+                printf("\nREINSERIRE\n");
+                return false;
+            }       
         }
     }
     return true;
