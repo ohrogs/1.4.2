@@ -13,13 +13,8 @@ void stampaRigaColonna(char[][DIM], char, int);
 void piazzaNavi(char[][DIM]);
 void stampaChar(char, int);
 void inserimento(char[][DIM], char, char, int, int, int);
-void portAerei(char[][DIM]);
-void fregata(char [][DIM]);
-void naveDaBattaglia(char [][DIM]);
-void sottomarino(char [][DIM]);
-void boa(char [][DIM]);
+void nave(char[][DIM], int);
 void stampaIstruzioni();
-void stampaIstruzioni1(); //istr per il primo round
 bool isPossible(char [][DIM], char, int, int, int);
 bool checkDefeat(char [][DIM]);
 
@@ -28,11 +23,13 @@ int main()
     char campo1[DIM][DIM], campo2[DIM][DIM]; //A = acqua, X = affondato/colpito
     bool g1=true, g2=true;
     inizializzaCampi(campo1, campo2);
-    stampaCampo(campo1);
+    //stampaCampo(campo1);
     int turno=1;
+    printf("Giocatore 2>\n");
     piazzaNavi(campo1);
     stampaCampo(campo1);
     system("cls");
+    printf("Giocatore 2>\n");
     piazzaNavi(campo2);
     stampaCampo(campo2);
     system("cls");
@@ -43,14 +40,13 @@ int main()
         bool token = true;
         while(token && turno%2!=0)//il giocatore 1 gioca coi dispari
         {
-            token=false;
+            int scelta;
             system("cls");
             g2=checkDefeat(campo2);
             token = false;
         }
         while(token && turno%2==0)//il giocatore 2 gioca coi pari
         {
-            token=false;
             system("cls");
             g1=checkDefeat(campo1);
             token = false;
@@ -58,6 +54,14 @@ int main()
         turno++;        
     } while (g1 && g2);
     
+}
+
+void istruzioni()
+{
+    printf("Inserire 1 per colpire\n");
+    printf("Inserire 2 per stampare il proprio tabellone\n");
+    printf("Inserire 3 per dichiarare la resa\n");
+    printf(">\n");
 }
 
 bool isPossible(char campo[][DIM], char rc, int pos, int y, int n)//rc indica la modalita di inserimento mentre pos la riga/colonna dove inseriere, y il corrispettivo e n l'estensione
@@ -105,14 +109,12 @@ void inserimento(char campo[][DIM], char rc, char c, int pos, int y, int n)
     }
 }
 
-
-
-void portAerei(char campo[][DIM])
+void nave(char campo[][DIM], int k)
 {
     int pos=0, y=0;
     char rc='a';
 
-    printf("inserimento portaereis>\n");
+    printf("inserimento nave da %d spazi>\n", k);
 
     do //porta aerei
     {
@@ -135,158 +137,28 @@ void portAerei(char campo[][DIM])
         {
             printf("inserire la posizione delle navi portaerei>");
             scanf("%d", &y);
-        } while ((y<0 && y>=DIM) || DIM-y<5);
-    } while (!isPossible(campo, rc, pos, y, 5));
-    inserimento(campo, rc, 'P', pos, y, 5);
-}
-
-void naveDaBattaglia(char campo[][DIM])
-{
-    int pos=0, y=0;
-    char rc='a';
-
-    printf("inserimento nave da battaglia>\n");
-
-    do
-    {
-        do
-        {
-            printf("inserire in riga o in colonna?(r/c)>");
-            fflush(stdin);
-            scanf("%c", &rc);
-        } while (rc != 'c' && rc != 'C' && rc != 'R' && rc != 'r');
-
-        do
-        {
-            printf("specificare la riga o la colonna scelta>");
-            scanf("%d", &pos);
-        } while (pos<0 && pos>=DIM);
-
-        stampaRigaColonna(campo, rc, pos);
-
-        do
-        {
-            printf("inserire la posizione della nave da battaglia>");
-            scanf("%d", &y);
-        } while ((y<0 && y>=DIM) || DIM-y<4);
-    } while (!isPossible(campo, rc, pos, y, 4));
-    inserimento(campo, rc, 'P', pos, y, 4);
-}
-
-void fregata(char campo[][DIM])
-{
-    int pos=0, y=0;
-    char rc='a';
-
-    printf("inserimento nave fregata>\n");
-
-    do
-    {
-        do
-        {
-            printf("inserire in riga o in colonna?(r/c)>");
-            fflush(stdin);
-            scanf("%c", &rc);
-        } while (rc != 'c' && rc != 'C' && rc != 'R' && rc != 'r');
-
-        do
-        {
-            printf("specificare la riga o la colonna scelta>");
-            scanf("%d", &pos);
-        } while (pos<0 && pos>=DIM);
-
-        stampaRigaColonna(campo, rc, pos);
-
-        do
-        {
-            printf("inserire la posizione della nave da battaglia>");
-            scanf("%d", &y);
-        } while ((y<0 && y>=DIM) || DIM-y<3);
-    } while (!isPossible(campo, rc, pos, y, 3));
-    inserimento(campo, rc, 'P', pos, y, 3);
-}
-
-void sottomarino(char campo[][DIM])
-{
-    int pos=0, y=0;
-    char rc='a';
-
-    printf("inserimento sottomarino>\n");
-
-    do
-    {
-        do
-        {
-            printf("inserire in riga o in colonna?(r/c)>");
-            fflush(stdin);
-            scanf("%c", &rc);
-        } while (rc != 'c' && rc != 'C' && rc != 'R' && rc != 'r');
-
-        do
-        {
-            printf("specificare la riga o la colonna scelta>");
-            scanf("%d", &pos);
-        } while (pos<0 && pos>=DIM);
-
-        stampaRigaColonna(campo, rc, pos);
-
-        do
-        {
-            printf("inserire la posizione della nave da battaglia>");
-            scanf("%d", &y);
-        } while ((y<0 && y>=DIM) || DIM-y<2);
-    } while (!isPossible(campo, rc, pos, y, 2));
-    inserimento(campo, rc, 'P', pos, y, 2);
-}
-
-void boa(char campo[][DIM])
-{
-    int pos=0, y=0;
-    char rc='a';
-
-    printf("inserimento sottomarino>\n");
-
-    do
-    {
-        do
-        {
-            printf("inserire in riga o in colonna?(r/c)>");
-            fflush(stdin);
-            scanf("%c", &rc);
-        } while (rc != 'c' && rc != 'C' && rc != 'R' && rc != 'r');
-
-        do
-        {
-            printf("specificare la riga o la colonna scelta>");
-            scanf("%d", &pos);
-        } while (pos<0 && pos>=DIM);
-
-        stampaRigaColonna(campo, rc, pos);
-
-        do
-        {
-            printf("inserire la posizione della nave da battaglia>");
-            scanf("%d", &y);
-        } while ((y<0 && y>=DIM) || DIM-y<1);
-    } while (!isPossible(campo, rc, pos, y, 1));
-    inserimento(campo, rc, 'P', pos, y, 1);
+        } while ((y<0 && y>=DIM) || DIM-y<k);
+    } while (!isPossible(campo, rc, pos, y, k));
+    inserimento(campo, rc, 'P', pos, y, k);
 }
 
 void piazzaNavi(char campo[][DIM]) 
 {
-    portAerei(campo);
+    nave(campo, 5);
     system("cls");
     stampaCampo(campo);
-    naveDaBattaglia(campo);
+    nave(campo, 4);
     system("cls");
     stampaCampo(campo);    
-    fregata(campo);
+    nave(campo, 3);
     system("cls");
     stampaCampo(campo);
-    sottomarino(campo);
+    nave(campo, 2);
     system("cls");
     stampaCampo(campo);
-    boa(campo);
+    nave(campo, 1);
+    system("cls");
+    stampaCampo(campo);
 }
 
 void stampaCampo(char campo[][DIM])
