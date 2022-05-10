@@ -8,6 +8,7 @@
 
 
 void inizializzaCampi(char[][DIM], char[][DIM]);
+void colpire(char[][DIM]);
 void stampaCampo(char[][DIM]);
 void stampaRigaColonna(char[][DIM], char, int);
 void piazzaNavi(char[][DIM]);
@@ -22,16 +23,16 @@ int main()
 {
     char campo1[DIM][DIM], campo2[DIM][DIM]; //A = acqua, X = affondato/colpito
     bool g1=true, g2=true;
+    int turno=1;
     inizializzaCampi(campo1, campo2);
     //stampaCampo(campo1);
-    int turno=1;
-    printf("Giocatore 2>\n");
+    printf("Giocatore 1>\n");
     piazzaNavi(campo1);
-    stampaCampo(campo1);
+    //stampaCampo(campo1);
     system("cls");
     printf("Giocatore 2>\n");
     piazzaNavi(campo2);
-    stampaCampo(campo2);
+    //stampaCampo(campo2);
     system("cls");
 
 
@@ -40,28 +41,81 @@ int main()
         bool token = true;
         while(token && turno%2!=0)//il giocatore 1 gioca coi dispari
         {
+            printf("GIOCATORE 1\n");
             int scelta;
-            system("cls");
+            do
+            {
+                stampaIstruzioni();
+                fflush(stdin);
+                scanf("%d", &scelta);
+                if(scelta == 1)
+                {
+                    colpire(campo2);
+                    break;
+                }
+                else if(scelta == 2)
+                {
+                    stampaCampo(campo1);
+                }
+                else if(scelta == 3)
+                {
+                    g1=false;
+                    break;
+                }
+            } while (true);
+            
             g2=checkDefeat(campo2);
             token = false;
         }
         while(token && turno%2==0)//il giocatore 2 gioca coi pari
         {
-            system("cls");
+            printf("GIOCATORE 2\n");
+            int scelta;
+            do
+            {
+                stampaIstruzioni();
+                fflush(stdin);
+                scanf("%d", &scelta);
+                if(scelta == 1)
+                {
+                    colpire(campo1);
+                    break;
+                }
+                else if(scelta == 2)
+                {
+                    stampaCampo(campo2);
+                }
+                else if(scelta == 3)
+                {
+                    g2=false;
+                    break;
+                }
+            } while (true);
             g1=checkDefeat(campo1);
-            token = false;
+            token = false;         
         }
         turno++;        
     } while (g1 && g2);
+
+    if(g1 && !g2)
+    {
+        system("cls");
+        printf("Congratulazioni giocatore1 hai vinto il game\n");
+    }
+    else if(!g1 && g2)
+    {
+        system("cls");
+        printf("Congratulazioni giocatore2 hai vinto il game\n");
+    }
     
 }
 
-void istruzioni()
+void stampaIstruzioni()
 {
     printf("Inserire 1 per colpire\n");
     printf("Inserire 2 per stampare il proprio tabellone\n");
     printf("Inserire 3 per dichiarare la resa\n");
-    printf(">\n");
+    printf(">");
 }
 
 bool isPossible(char campo[][DIM], char rc, int pos, int y, int n)//rc indica la modalita di inserimento mentre pos la riga/colonna dove inseriere, y il corrispettivo e n l'estensione
@@ -228,4 +282,30 @@ bool checkDefeat(char campo[][DIM])
         }
     }
     return false;
+}
+
+void colpire(char target[][DIM])
+{
+    int x,y;
+    do
+    {
+        printf("Inserire x (orizzontale) dove colpire>");
+        scanf("%d", &x);
+    } while (x<0 && x>DIM);
+
+    do
+    {
+        printf("Inserire y (verticale) dove colpire>");
+        scanf("%d", &y);
+    } while (y<0 && y>DIM);
+
+    if (target[y][x]!='a')
+    {
+        target[y][x]='X';
+        printf("COLPITO!!\n");
+    }
+    else
+    {
+        printf("mancato\n");       
+    }
 }
